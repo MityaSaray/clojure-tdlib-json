@@ -32,3 +32,7 @@ Commands are
 "lein deps" - to get dependencies.
 "lein buildTg" - to build telegram client from source (may take a while).
 "lein run" - to launch application.
+
+
+Namespace tdlib-json-clojure-wrapper.tg-connector.core has prepared functions to communicate.
+It also has "message-queue" channel that is filled with incoming messages.
