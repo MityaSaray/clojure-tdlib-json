@@ -6,8 +6,4 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [com.sun.jna/jna "3.0.9"]
                  [cheshire "5.8.1"]
-                 [org.clojure/core.async "0.4.490"]]
-  :main tdlib-json-clojure-wrapper.core
-  :plugins [[lein-shell "0.5.0"]]
-  :aliases {"buildTg"
-            ["shell" "./tdlib_install.sh"]})
+                 [org.clojure/core.async "0.4.490"]])

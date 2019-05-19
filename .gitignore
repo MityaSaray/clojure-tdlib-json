@@ -17,4 +17,3 @@ src/tdlib_json_clojure_wrapper/tg_connector/build
 *.log
 *.binlog
 tg-db
-config.json

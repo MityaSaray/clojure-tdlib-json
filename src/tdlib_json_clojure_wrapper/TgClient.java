@@ -1,4 +1,4 @@
-package tdlib_json_clojure_wrapper.tg_connector;
+package tdlib_json_clojure_wrapper;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -8,12 +8,12 @@ public class TgClient {
     private static String pathToLib;
     private static Pointer tgInstancePointer;
     private static String errorMessage = "Tdlib client was null";
-
-    static {
-        pathToLib = System.getProperty("user.dir") + "/src/tdlib_json_clojure_wrapper/tg_connector/build/libtdjson.so";
-    }
-
     private TdLibrary client;
+
+    public TgClient(String path) {
+        System.out.println(path);
+        pathToLib = path;
+    }
 
     public void startClient() {
         if (tgInstancePointer == null) {
@@ -24,6 +24,7 @@ public class TgClient {
     }
 
     public void send(String message) {
+        System.out.println(message);
         if (tgInstancePointer != null) {
             client.td_json_client_send(tgInstancePointer, message);
         } else {
