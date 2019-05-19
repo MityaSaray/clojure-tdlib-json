@@ -1,5 +1,5 @@
-(ns tdlib-json-clojure-wrapper.example
-  (:require [tdlib-json-clojure-wrapper.core :as c]
+(ns main.tdlib_json_clojure_wrapper.example
+  (:require [main.tdlib-json-clojure-wrapper.core :as c]
             [clojure.core.async :as async]
             [clojure.pprint :as pp])
   (:import (java.util.concurrent CountDownLatch)))

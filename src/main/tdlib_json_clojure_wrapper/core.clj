@@ -1,7 +1,7 @@
-(ns tdlib-json-clojure-wrapper.core
+(ns main.tdlib_json_clojure_wrapper.core
   (:require [cheshire.core :as che]
             [clojure.core.async :as async])
-  (:import (tdlib_json_clojure_wrapper TgClient)))
+  (:import [main.java TgClient]))
 
 (def client (atom nil))
 

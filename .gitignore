@@ -12,8 +12,8 @@ pom.xml.asc
 /td
 .idea/
 /doc
-tdlib_json_clojure_wrapper.iml
-src/tdlib_json_clojure_wrapper/tg_connector/build
+tdlib-json-wrapper.iml
+src/main.tdlib_json_clojure_wrapper/tg_connector/build
 *.log
 *.binlog
 tg-db
