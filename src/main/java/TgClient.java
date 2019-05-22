@@ -4,31 +4,25 @@ import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
+import java.util.Objects;
+
 public class TgClient {
     private static String pathToLib;
     private static Pointer tgInstancePointer;
     private static String errorMessage = "Tdlib client was null";
     private TdLibrary client;
+    private double timeout;
 
-    public TgClient(String path) {
-        System.out.println(path);
+    public TgClient(String path, double timeout) {
         pathToLib = path;
+        this.timeout = timeout;
     }
 
-    public void startClient() {
+    public void startClient(Integer verbosityLevel) {
         if (tgInstancePointer == null) {
             client = TdLibrary.INSTANCE;
             tgInstancePointer = client.td_json_client_create();
-            client.td_set_log_verbosity_level(2);
-        }
-    }
-
-    public void send(String message) {
-        System.out.println(message);
-        if (tgInstancePointer != null) {
-            client.td_json_client_send(tgInstancePointer, message);
-        } else {
-            throw new Error(errorMessage);
+            client.td_set_log_verbosity_level(Objects.requireNonNullElse(verbosityLevel, 2));
         }
     }
 
@@ -43,9 +37,9 @@ public class TgClient {
         }
     }
 
-    public String receive(double timeout) {
+    public String receive() {
         if (tgInstancePointer != null) {
-            return client.td_json_client_receive(tgInstancePointer, timeout);
+            return client.td_json_client_receive(tgInstancePointer, this.timeout);
         } else {
             throw new Error(errorMessage);
         }

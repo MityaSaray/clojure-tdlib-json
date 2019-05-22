@@ -13,7 +13,6 @@ pom.xml.asc
 .idea/
 /doc
 tdlib-json-wrapper.iml
-src/main.tdlib_json_clojure_wrapper/tg_connector/build
 *.log
 *.binlog
 tg-db

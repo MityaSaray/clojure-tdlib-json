@@ -1,6 +1,6 @@
-(defproject tdlib-json-wrapper "0.1.4"
-  :description "main.tdlib_json_clojure_wrapper"
-  :url "https://github.com/MityaSaray/clojure-tdlib-json-wrapper"
+(defproject tdlib-json-wrapper "0.2.0"
+  :description "tdlib_json"
+  :url "https://github.com/MityaSaray/clojure-tdlib-json"
   :license {:name "Eclipse Public License"
             :url  "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.10.0"]
