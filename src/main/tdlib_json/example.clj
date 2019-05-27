@@ -54,7 +54,7 @@
   [] (c/client-send {ttype "logOut"} true))
 
 (defn resolve-auth [message]
-  (let [state (get-in message ["authorization_state", "@type"])]
+  (let [state (get-in message [:authorization_state, ttype])]
     (cond
       (= state "authorizationStateWaitTdlibParameters")
       (c/client-send config)
@@ -70,7 +70,7 @@
   []
   (async/go-loop []
     (let [message (async/<! c/message-queue)
-          type (get message "@type")]
+          type (get message ttype)]
       (cond
         (= type "updateAuthorizationState")
         (resolve-auth message)

@@ -13,7 +13,7 @@
 (defn jsonify [hash] (che/generate-string hash))
 
 (defn json-parse [string]
-  (che/parse-string string))
+  (che/parse-string string true))
 
 (defn client-execute
   ([hash] (. @client execute (jsonify hash))))
