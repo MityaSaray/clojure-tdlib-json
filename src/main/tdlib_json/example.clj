@@ -50,18 +50,23 @@
                                           :text {ttype "formattedText"
                                                  :text message}}}))
 
-(defn log-out
-  [] (c/client-send {ttype "logOut"} true))
+(defn close []
+  (c/client-send {ttype "close"}))
+
+(defn log-out []
+  (c/client-send {ttype "logOut"}))
 
 (defn resolve-auth [message]
   (let [state (get-in message [:authorization_state, ttype])]
     (cond
+      (#{"authorizationStateClosed" "authorizationStateLoggingOut"} type)
+      (c/client-destroy)
       (= state "authorizationStateWaitTdlibParameters")
       (c/client-send config)
       (= state "authorizationStateWaitEncryptionKey")
       (c/client-send {ttype "checkDatabaseEncryptionKey"})
       (= state "authorizationStateWaitPhoneNumber")
-      ((get-and-send-phone))
+      (get-and-send-phone)
       (= state "authorizationStateWaitCode")
       (get-and-send-code))))
 
@@ -76,7 +81,8 @@
         (resolve-auth message)
         (= type "updateNewMessage")
         (pp/pprint message)))
-    (recur)))
+    (when @c/client
+      (recur))))
 
 ;; Absolute path to tdlibjson.so and timeout is a double that sets timeout in receive method of tdlib
 ;; Verbosity level is a param sent to tdlib

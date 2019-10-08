@@ -8,7 +8,7 @@
 (defn create-client [path-to-lib timeout]
   (TgClient. path-to-lib timeout))
 
-(def message-queue (async/chan))
+(def message-queue (atom nil))
 
 (defn jsonify [hash] (che/generate-string hash))
 
@@ -19,12 +19,11 @@
   ([hash] (. @client execute (jsonify hash))))
 
 (defn client-receive
-  "argument is timeout in seconds and it has to be double"
   []
   (json-parse (. @client receive)))
 
 (defn client-destroy []
-  (. @client destroyClient)
+  (reset! message-queue nil)
   (reset! client nil))
 
 (defn client-send
@@ -35,15 +34,17 @@
    (. @client send (jsonify hash) logout)))
 
 (defn client-start [path-to-lib timeout verbosity-level]
+  (reset! message-queue (async/chan))
   (reset! client (create-client path-to-lib timeout))
   (. @client startClient verbosity-level))
 
 (defn init-reader-loop []
   (async/go-loop []
-    (let [message (client-receive)]
-      (when-not
-        (nil? message)
-        (async/>! message-queue message))
-      (recur))))
+    (when (and @message-queue @client)
+      (let [message (client-receive)]
+        (when-not
+          (nil? message)
+          (async/>! @message-queue message))
+        (recur)))))
 
 

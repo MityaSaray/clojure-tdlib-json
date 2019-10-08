@@ -8,8 +8,8 @@ import java.util.Objects;
 
 public class TgClient {
     private static String pathToLib;
-    private static Pointer tgInstancePointer;
     private static String errorMessage = "Tdlib client was null";
+    private Pointer tgInstancePointer;
     private TdLibrary client;
     private double timeout;
 
@@ -26,12 +26,9 @@ public class TgClient {
         }
     }
 
-    public void send(String message, boolean logout) {
+    public void send(String message) {
         if (tgInstancePointer != null) {
             client.td_json_client_send(tgInstancePointer, message);
-            if (logout) {
-                tgInstancePointer = null;
-            }
         } else {
             throw new Error(errorMessage);
         }
@@ -41,7 +38,7 @@ public class TgClient {
         if (tgInstancePointer != null) {
             return client.td_json_client_receive(tgInstancePointer, this.timeout);
         } else {
-            throw new Error(errorMessage);
+            return null;
         }
     }
 
@@ -51,13 +48,11 @@ public class TgClient {
 
     public boolean destroyClient() {
         if (tgInstancePointer != null) {
-            client.td_json_client_destroy(tgInstancePointer);
             tgInstancePointer = null;
             return true;
         }
         return false;
     }
-
 
     public interface TdLibrary extends Library {
         TdLibrary INSTANCE = (TdLibrary)
