@@ -28,10 +28,8 @@
 
 (defn client-send
   "If we want to logout we send additional argument that will delete pointer to tdlib client"
-  ([hash]
-   (. @client send (jsonify hash)))
-  ([hash]
-   (. @client send (jsonify hash))))
+  [hash]
+  (. @client send (jsonify hash)))
 
 (defn client-start [path-to-lib timeout verbosity-level]
   (reset! message-queue (async/chan))
