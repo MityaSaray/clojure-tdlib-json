@@ -59,7 +59,7 @@
 (defn resolve-auth [message]
   (let [state (get-in message [:authorization_state, ttype])]
     (cond
-      (#{"authorizationStateClosed" "authorizationStateLoggingOut"} type)
+      (#{"authorizationStateClosed" "authorizationStateLoggingOut"} state)
       (c/client-destroy)
       (= state "authorizationStateWaitTdlibParameters")
       (c/client-send config)
