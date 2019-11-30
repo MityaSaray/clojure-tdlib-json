@@ -75,7 +75,7 @@
   []
   (async/go-loop []
     (let [message (async/<! c/message-queue)
-          type (get message ttype)]
+          type    (get message ttype)]
       (cond
         (= type "updateAuthorizationState")
         (resolve-auth message)
@@ -86,18 +86,16 @@
 
 ;; Absolute path to tdlibjson.so and timeout is a double that sets timeout in receive method of tdlib
 ;; Verbosity level is a param sent to tdlib
-(defn start-telegram [path-to-lib timeout & verbosity-level]
-  (when-not (and (nil? path-to-lib) (nil? timeout))
-    (c/client-start path-to-lib timeout (first verbosity-level))
-    (c/init-reader-loop)
-    (mq-handler)))
-
-(defn start-tg
-  "Start client connection and message handling, will block input on repl"
-  [path-to-lib timeout]
-  (let [signal (CountDownLatch. 1)]
-    (start-telegram path-to-lib timeout)
-    (.await signal)))
+(defn start-telegram
+  "path-to-lib: path to tdlibjson.so
+   timeout: timeout used by json client
+   verbosity-level: level of debug information coming from json client
+   buffer-size: size of message-que buffer / default value is 1024"
+  ([path-to-lib timeout verbosity-level buffer-size]
+   (when-not (and (nil? path-to-lib) (nil? timeout))
+     (c/client-start path-to-lib timeout verbosity-level buffer-size)
+     (c/init-reader-loop)
+     (mq-handler))))
 
 
 

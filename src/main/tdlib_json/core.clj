@@ -31,10 +31,13 @@
   [hash]
   (. @client send (jsonify hash)))
 
-(defn client-start [path-to-lib timeout verbosity-level]
-  (reset! message-queue (async/chan))
-  (reset! client (create-client path-to-lib timeout))
-  (. @client startClient verbosity-level))
+(defn client-start
+  ([path-to-lib timeout verbosity-level]
+   (client-start path-to-lib timeout verbosity-level 1024))
+  ([path-to-lib timeout verbosity-level buffer-size]
+   (reset! message-queue (async/chan (async/buffer buffer-size)))
+   (reset! client (create-client path-to-lib timeout))
+   (. @client startClient verbosity-level)))
 
 (defn init-reader-loop []
   (async/go-loop []
@@ -44,5 +47,3 @@
           (nil? message)
           (async/>! @message-queue message))
         (recur)))))
-
-
