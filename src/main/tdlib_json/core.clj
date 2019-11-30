@@ -10,13 +10,13 @@
 
 (def message-queue (atom nil))
 
-(defn jsonify [hash] (che/generate-string hash))
+(defn jsonify [messageMap] (che/generate-string messageMap))
 
 (defn json-parse [string]
   (che/parse-string string true))
 
 (defn client-execute
-  ([hash] (. @client execute (jsonify hash))))
+  ([messageMap] (. @client execute (jsonify messageMap))))
 
 (defn client-receive
   []
@@ -27,9 +27,8 @@
   (reset! client nil))
 
 (defn client-send
-  "If we want to logout we send additional argument that will delete pointer to tdlib client"
-  [hash]
-  (. @client send (jsonify hash)))
+  [messageMap]
+  (. @client send (jsonify messageMap)))
 
 (defn client-start
   ([path-to-lib timeout verbosity-level]

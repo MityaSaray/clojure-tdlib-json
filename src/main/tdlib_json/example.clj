@@ -23,6 +23,7 @@
   (c/client-send {ttype "getContacts"}))
 
 (defn send-phone [phone-number]
+  "Send your phone number, required for auth"
   (c/client-send {ttype "setAuthenticationPhoneNumber" :phone_number phone-number}))
 
 (defn get-and-send-phone []
@@ -31,11 +32,14 @@
     (send-phone phone)))
 
 (defn send-auth-code [code]
+  "Send your code, required for auth"
   (c/client-send {ttype "checkAuthenticationCode" :code code}))
 
 (defn get-and-send-code []
   (println "Enter your code")
   (let [code (read-line)]
+(defn log-out []
+  (c/client-send {ttype "logOut"}))
     (send-auth-code code)))
 
 (defn get-chats []
@@ -52,9 +56,6 @@
 
 (defn close []
   (c/client-send {ttype "close"}))
-
-(defn log-out []
-  (c/client-send {ttype "logOut"}))
 
 (defn resolve-auth [message]
   (let [state (get-in message [:authorization_state, ttype])]
