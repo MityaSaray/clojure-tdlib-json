@@ -1,5 +1,5 @@
-(ns main.tdlib_json.example
-  (:require [main.tdlib_json.core :as c]
+(ns tdlib-json.example
+  (:require [tdlib-json.core :as c]
             [clojure.core.async :as async]
             [clojure.pprint :as pp])
   (:import (java.util.concurrent CountDownLatch)))
@@ -97,7 +97,3 @@
      (c/client-start path-to-lib timeout verbosity-level buffer-size)
      (c/init-reader-loop)
      (mq-handler))))
-
-
-
-
