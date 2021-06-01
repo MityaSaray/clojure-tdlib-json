@@ -45,7 +45,7 @@
 (defn init-reader-loop [timeout]
   (async/go-loop [t timeout]
     (when (and @message-queue @client)
-      (let [message (client-receive timeout)]
+      (let [message (client-receive t)]
         (when-not (nil? message)
           (async/>! @message-queue message))
         (recur t)))))
