@@ -6,6 +6,7 @@
   :dependencies [[com.sun.jna/jna "3.0.9"]
                  [cheshire "5.8.1"]
                  [org.clojure/core.async "0.4.490"]]
-  :java-source-paths ["src/main/java"]
+  :source-paths ["src/clojure"]
+  :java-source-paths ["src/java"]
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[org.clojure/clojure "1.10.0"]]}})
