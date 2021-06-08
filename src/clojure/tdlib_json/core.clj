@@ -21,6 +21,7 @@
   (.receive ^TgJsonClient @client timeout))
 
 (defn client-destroy []
+  (client-send "{\"@type\":\"close\"}")
   (.destroy ^TgJsonClient @client)
   (reset! message-queue nil)
   (reset! client nil))
