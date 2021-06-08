@@ -1,15 +1,6 @@
 (ns tdlib-json.core
-  (:require
-   [cheshire.core :as json]
-   [clojure.core.async :as async])
+  (:require [clojure.core.async :as async])
   (:import [tdlib_json TgJsonClient]))
-
-
-(defn jsonify [messageMap]
-  (json/generate-string messageMap))
-
-(defn json-parse [string]
-  (json/parse-string string true))
 
 
 (def client (atom nil))
@@ -20,14 +11,14 @@
 (defn create-client [path-to-lib verbosity]
   (TgJsonClient. path-to-lib verbosity))
 
-(defn client-send [messageMap]
-  (.send @client (jsonify messageMap)))
+(defn client-send [message]
+  (.send @client message))
 
-(defn client-execute [messageMap]
-  (.execute @client (jsonify messageMap)))
+(defn client-execute [message]
+  (.execute @client message))
 
 (defn client-receive [timeout]
-  (json-parse (.receive @client timeout)))
+  (.receive @client timeout))
 
 (defn client-destroy []
   (.destroy @client)
