@@ -12,16 +12,16 @@
   (TgJsonClient. path-to-lib verbosity))
 
 (defn client-send [message]
-  (.send @client message))
+  (.send ^TgJsonClient @client message))
 
 (defn client-execute [message]
-  (.execute @client message))
+  (.execute ^TgJsonClient @client message))
 
 (defn client-receive [timeout]
-  (.receive @client timeout))
+  (.receive ^TgJsonClient @client timeout))
 
 (defn client-destroy []
-  (.destroy @client)
+  (.destroy ^TgJsonClient @client)
   (reset! message-queue nil)
   (reset! client nil))
 
