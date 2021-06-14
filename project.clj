@@ -1,4 +1,4 @@
-(defproject tdlib-json-wrapper "0.3.1"
+(defproject tdlib-json-wrapper "0.4.0"
   :description "tdlib_json"
   :url "https://github.com/MityaSaray/clojure-tdlib-json"
   :license {:name "Eclipse Public License"
