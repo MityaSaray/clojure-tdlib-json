@@ -6,7 +6,7 @@ Prerequisites are described in [tdlib](https://github.com/tdlib/td) repository.
 
 Also [Leiningen](https://leiningen.org/) .
 
-Clojars `[tdlib-json-wrapper "0.2.3"]`
+Clojars `[tdlib-json-wrapper "0.4.1"]`
 
 **Working with library itself**
 
